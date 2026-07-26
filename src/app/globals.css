@@ -47,3 +47,175 @@ a {
     color-scheme: dark;
   }
 }
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  width: 100%;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin: 2rem 0 1rem;
+}
+
+.subtitle {
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-radius: 8px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+input {
+  font: inherit;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+  border-radius: 4px;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+button {
+  font: inherit;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+  background: var(--foreground);
+  color: var(--background);
+  cursor: pointer;
+  width: fit-content;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--foreground);
+}
+
+.error {
+  border: 1px solid #c0392b;
+  background: color-mix(in srgb, #c0392b 12%, transparent);
+  color: #c0392b;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.card {
+  border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+  margin-top: 0.9rem;
+}
+
+.section-label:first-child {
+  margin-top: 0;
+}
+
+.section-body {
+  white-space: pre-wrap;
+  margin-top: 0.15rem;
+}
+
+.flag-banner {
+  border: 1px solid #b8860b;
+  background: color-mix(in srgb, #b8860b 15%, transparent);
+  color: #8a6100;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .flag-banner {
+    color: #e0b84a;
+  }
+}
+
+.checks-list {
+  list-style: none;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.check-item {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+}
+
+.check-pass {
+  border-left: 3px solid #2e8b57;
+}
+
+.check-fail {
+  border-left: 3px solid #c0392b;
+}
+
+.check-status {
+  font-weight: 700;
+  margin-right: 0.4rem;
+}
+
+.skills-list {
+  list-style: none;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skill-item {
+  font-size: 0.85rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+}
+
+.card-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.download-link {
+  font-weight: 700;
+  text-decoration: underline;
+}
