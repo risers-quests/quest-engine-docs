@@ -84,6 +84,7 @@ export async function POST(request: Request) {
         raw_output: rawOutput,
         skills_claimed: skillsClaimed,
         ethics_flag: ethicsFlag,
+        verification_steps: generated.verification_steps,
       })
       .select()
       .single();

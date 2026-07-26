@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   // "doc loading" section) - trace them into the deployed function bundle.
   outputFileTracingIncludes: {
     "/api/generate": ["./docs/*.md"],
+    "/api/build": ["./docs/*.md"],
   },
 };
 

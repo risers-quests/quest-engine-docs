@@ -2,23 +2,7 @@
 
 import { useState } from "react";
 import { ConceptRecord, GenerateResponse } from "@/lib/apiTypes";
-
-interface Section {
-  label: string;
-  body: string;
-}
-
-// concepts.raw_output is "LABEL\nbody" blocks joined by blank lines
-// (src/lib/generation/formatRawOutput.ts) - split back into sections for display.
-function parseSections(rawOutput: string): Section[] {
-  return rawOutput.split("\n\n").map((block) => {
-    const newlineIndex = block.indexOf("\n");
-    if (newlineIndex === -1) {
-      return { label: "", body: block };
-    }
-    return { label: block.slice(0, newlineIndex), body: block.slice(newlineIndex + 1) };
-  });
-}
+import { parseSections } from "@/lib/generation/parseSections";
 
 interface BuildResult {
   conceptId: string;

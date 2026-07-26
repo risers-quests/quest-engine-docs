@@ -19,6 +19,10 @@ Storage: Supabase (Postgres). No login/auth in v1 — single implicit user.
 - skills_claimed (jsonb) — array of {skill, sub_skill, moment, justification}
 - ethics_flag (text, nullable) — null if clean, else the "excluded, uncertain boundary" reason
 - was_chosen (boolean, default false)
+- verification_steps (jsonb, default []) — array of {description, expression, claimed_result}
+  backing the VERIFICATION section's prose; lets the computation_verification check
+  independently re-derive it and lets the PDF build draw it as a real diagram instead of
+  only having prose to render
 
 ### checks
 - id (uuid, pk)

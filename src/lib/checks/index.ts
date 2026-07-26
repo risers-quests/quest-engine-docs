@@ -6,6 +6,24 @@ import { checkSkillClaimTraceability } from "./skillClaimTraceability";
 import { CheckResult } from "./types";
 
 export type { CheckResult };
+export { checkEncodingFontSafety };
+
+function collectConceptText(concept: GeneratedConcept): string {
+  const skillsText = concept.skills_claimed
+    .map((claim) => `${claim.sub_skill} ${claim.moment} ${claim.justification}`)
+    .join(" ");
+
+  return [
+    concept.core_idea,
+    concept.why_it_has_depth,
+    concept.checkable_task_example,
+    concept.calibration_check,
+    concept.verification,
+    concept.whats_given_vs_withheld,
+    skillsText,
+    concept.ethics_reason,
+  ].join(" ");
+}
 
 // Runs every deterministic check from docs/07_checks.md, in the order that
 // doc lists them. Called automatically on every generated concept, before
@@ -15,7 +33,7 @@ export async function runDeterministicChecks(
 ): Promise<CheckResult[]> {
   return [
     checkComputationVerification(concept),
-    checkEncodingFontSafety(concept),
+    checkEncodingFontSafety(collectConceptText(concept)),
     checkStructuralCompleteness(concept),
     await checkSkillClaimTraceability(concept),
   ];

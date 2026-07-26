@@ -1,4 +1,5 @@
 import { StoredSkillClaim } from "./generation/resolveSkillsClaimed";
+import { VerificationStep } from "./generation/schema";
 
 export interface ConceptCheckResult {
   id: string;
@@ -17,6 +18,7 @@ export interface ConceptRecord {
   skills_claimed: StoredSkillClaim[];
   ethics_flag: string | null;
   was_chosen: boolean;
+  verification_steps: VerificationStep[];
   checks: ConceptCheckResult[];
 }
 
