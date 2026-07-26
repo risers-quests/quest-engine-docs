@@ -3,6 +3,7 @@ import { getSupabaseServerClient } from "@/lib/supabase";
 import { generateConcepts } from "@/lib/generation/generateConcepts";
 import { formatRawOutput } from "@/lib/generation/formatRawOutput";
 import { resolveSkillsClaimed } from "@/lib/generation/resolveSkillsClaimed";
+import { runDeterministicChecks } from "@/lib/checks";
 
 interface GenerateRequestBody {
   age_band?: string;
@@ -94,7 +95,27 @@ export async function POST(request: Request) {
       );
     }
 
-    concepts.push(conceptRow);
+    const checkResults = await runDeterministicChecks(generated);
+    const { data: checkRows, error: checksError } = await supabase
+      .from("checks")
+      .insert(
+        checkResults.map((result) => ({
+          concept_id: conceptRow.id,
+          check_type: result.check_type,
+          passed: result.passed,
+          detail: result.detail,
+        }))
+      )
+      .select();
+
+    if (checksError) {
+      return NextResponse.json(
+        { error: `Failed to store check results: ${checksError.message}` },
+        { status: 500 }
+      );
+    }
+
+    concepts.push({ ...conceptRow, checks: checkRows });
   }
 
   return NextResponse.json({ request_id: requestRow.id, concepts });

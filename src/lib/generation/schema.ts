@@ -9,12 +9,22 @@ export interface SkillClaim {
   justification: string;
 }
 
+// A single arithmetic step backing the prose `verification` field, so
+// docs/07_checks.md's "computation verification" check can independently
+// re-derive it in code instead of re-asking the model.
+export interface VerificationStep {
+  description: string;
+  expression: string;
+  claimed_result: number;
+}
+
 export interface GeneratedConcept {
   core_idea: string;
   why_it_has_depth: string;
   checkable_task_example: string;
   calibration_check: string;
   verification: string;
+  verification_steps: VerificationStep[];
   whats_given_vs_withheld: string;
   skills_claimed: SkillClaim[];
   ethics_status: "clear" | "flagged_for_review";
@@ -63,6 +73,30 @@ const conceptSchema = {
       description:
         "Full best-case/worst-case path reasoning if applicable, otherwise state plainly that verification does not apply and why",
     },
+    verification_steps: {
+      type: "array",
+      description:
+        "If the concept involves numbers/paths (trades, calculations, resource math), list each computation as a re-derivable arithmetic step matching the reasoning in `verification`. Use only +, -, *, /, parentheses, and decimal numbers in `expression` - no variables. Leave this an empty array when the concept involves no computation.",
+      items: {
+        type: "object",
+        properties: {
+          description: {
+            type: "string",
+            description: "What this step computes, in plain language",
+          },
+          expression: {
+            type: "string",
+            description: "A literal arithmetic expression, e.g. \"12 * 3 + 7\"",
+          },
+          claimed_result: {
+            type: "number",
+            description: "The numeric result the concept's reasoning claims this expression produces",
+          },
+        },
+        required: ["description", "expression", "claimed_result"],
+        additionalProperties: false,
+      },
+    },
     whats_given_vs_withheld: { type: "string" },
     skills_claimed: {
       type: "array",
@@ -84,6 +118,7 @@ const conceptSchema = {
     "checkable_task_example",
     "calibration_check",
     "verification",
+    "verification_steps",
     "whats_given_vs_withheld",
     "skills_claimed",
     "ethics_status",
